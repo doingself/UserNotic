@@ -58,7 +58,8 @@ extension NotificationHandler: UNUserNotificationCenterDelegate{
         }
         
         //在根视图控制器上弹出普通消息提示框
-        if let vc = UIApplication.shared.keyWindow?.rootViewController {
+        //let vc = UIApplication.shared.keyWindow?.rootViewController
+        if let vc = UIApplication.shared.windows.last?.rootViewController {
             let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "确定", style: .cancel))
             vc.present(alert, animated: true)
