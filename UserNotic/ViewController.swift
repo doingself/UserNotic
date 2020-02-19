@@ -17,20 +17,44 @@ class ViewController: UIViewController {
         self.title = "UserNotificatioin"
         self.view.backgroundColor = UIColor.white
         
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        let add = getButton(tag: 1, title: "add")
+        let get = getButton(tag: 2, title: "get")
+        let del = getButton(tag: 3, title: "del")
         
-        createLocalUserNotifications()
+        self.view.addSubview(add)
+        self.view.addSubview(get)
+        self.view.addSubview(del)
+        
+        add.frame = CGRect(x: 100, y: 100, width: 100, height: 35)
+        get.frame = CGRect(x: 100, y: 150, width: 100, height: 35)
+        del.frame = CGRect(x: 100, y: 200, width: 100, height: 35)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        getLocalUserNotificatoins()
+    func getButton(tag: Int, title: String) -> UIButton {
+        let btn = UIButton()
+        btn.tag = tag
+        btn.setTitle(title, for: UIControl.State.normal)
+        btn.setTitleColor(UIColor.blue, for: UIControl.State.normal)
+        btn.addTarget(self, action: #selector(self.buttonAction(sender:)), for: UIControl.Event.touchUpInside)
+        return btn
     }
-
+    
+    @objc func buttonAction(sender: UIButton){
+        let tag = sender.tag
+        switch tag {
+        case 1:
+            createLocalUserNotifications()
+            
+        case 2:
+            getLocalUserNotificatoins()
+            
+        case 3:
+            deleteLocalUserNotificatioins()
+            
+        default:
+            break
+        }
+    }
 }
 
 // MARK: UserNotificatons
@@ -63,10 +87,10 @@ extension ViewController {
          let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
          */
         // 一段时间后触发（UNTimeIntervalNotificationTrigger）
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
          
         //设置请求标识符, 可用相同的标识符进行更新 content
-        let requestIdentifier = "identifier"
+        let requestIdentifier = "identifier-\(Date().timeIntervalSince1970)"
          
         //设置一个通知请求
         let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
