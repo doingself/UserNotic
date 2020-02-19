@@ -50,7 +50,6 @@
 		679D359723FD0B1500D2E5AB /* UserNoticUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UserNoticUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		679D359B23FD0B1500D2E5AB /* UserNoticUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticUITests.swift; sourceTree = "<group>"; };
 		679D359D23FD0B1500D2E5AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		679D35A923FD14D200D2E5AB /* UserNotic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UserNotic.entitlements; sourceTree = "<group>"; };
 		679D35AA23FD1B3F00D2E5AB /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,7 +101,6 @@
 		679D357823FD0B1400D2E5AB /* UserNotic */ = {
 			isa = PBXGroup;
 			children = (
-				679D35A923FD14D200D2E5AB /* UserNotic.entitlements */,
 				679D357923FD0B1400D2E5AB /* AppDelegate.swift */,
 				679D357B23FD0B1400D2E5AB /* SceneDelegate.swift */,
 				679D35AA23FD1B3F00D2E5AB /* NotificationHandler.swift */,
