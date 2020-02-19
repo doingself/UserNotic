@@ -17,21 +17,34 @@ class ViewController: UIViewController {
         self.title = "UserNotificatioin"
         self.view.backgroundColor = UIColor.white
         
-        let add = getButton(tag: 1, title: "add")
-        let get = getButton(tag: 2, title: "get")
-        let del = getButton(tag: 3, title: "del")
+        var index = 0
+        let add = getButton(index: index, tag: 11, title: "add")
+        
+        index += 1
+        let addCategory = getButton(index: index, tag: 12, title: "addCategory")
+        
+        index += 1
+        let get = getButton(index: index, tag: 21, title: "get")
+        
+        index += 1
+        let del = getButton(index: index, tag: 33, title: "del")
         
         self.view.addSubview(add)
+        self.view.addSubview(addCategory)
         self.view.addSubview(get)
         self.view.addSubview(del)
-        
-        add.frame = CGRect(x: 100, y: 100, width: 100, height: 35)
-        get.frame = CGRect(x: 100, y: 150, width: 100, height: 35)
-        del.frame = CGRect(x: 100, y: 200, width: 100, height: 35)
     }
     
-    func getButton(tag: Int, title: String) -> UIButton {
-        let btn = UIButton()
+    func getButton(index: Int, tag: Int, title: String) -> UIButton {
+        
+        let x: CGFloat = 100
+        let y: CGFloat = CGFloat(100 + (index * 40))
+        let width: CGFloat = self.view.frame.size.width - 200
+        let height: CGFloat = 35
+        
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        
+        let btn = UIButton(frame: frame)
         btn.tag = tag
         btn.setTitle(title, for: UIControl.State.normal)
         btn.setTitleColor(UIColor.blue, for: UIControl.State.normal)
@@ -42,13 +55,16 @@ class ViewController: UIViewController {
     @objc func buttonAction(sender: UIButton){
         let tag = sender.tag
         switch tag {
-        case 1:
+        case 11:
             createLocalUserNotifications()
             
-        case 2:
+        case 12:
+            createCategoryLocalUserNotifications()
+            
+        case 21:
             getLocalUserNotificatoins()
             
-        case 3:
+        case 31:
             deleteLocalUserNotificatioins()
             
         default:
@@ -101,6 +117,25 @@ extension ViewController {
                 print("Time Interval Notification scheduled: \(requestIdentifier)")
             }
         }
+    }
+    
+    
+    func createCategoryLocalUserNotifications(){
+        print("==== \(#function)")
+        
+        let content = UNMutableNotificationContent()
+        content.title = "title"
+        content.body = "\(#function)"
+        content.badge = 2
+        content.userInfo = ["key": "value"]
+        //设置通知对应的category标识符
+        // apns.json -> "category":"news"
+        content.categoryIdentifier = "news"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        let requestIdentifier = "identifier-\(Date().timeIntervalSince1970)"
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
     func getLocalUserNotificatoins(){

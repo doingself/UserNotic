@@ -32,8 +32,36 @@ extension NotificationHandler: UNUserNotificationCenterDelegate{
         let userInfo = response.notification.request.content.userInfo
         print(userInfo)
         
+        // 添加事件
+        configActionWithIdentifier(response: response)
+        
         //完成了工作
         completionHandler()
     }
     
+    //处理新闻资讯通知的交互
+    private func configActionWithIdentifier(response: UNNotificationResponse) {
+        
+        guard response.notification.request.content.categoryIdentifier == "news" else {
+            return
+        }
+        
+        let message: String
+        //判断点击是那个action
+        switch response.actionIdentifier {
+        case "newsLike": message = "你点击了“点个赞”按钮"
+        case "newsCancel": message = "你点击了“取消”按钮"
+        case "newsComment":
+            message = "你输入的是：\((response as! UNTextInputNotificationResponse).userText)"
+        default:
+            message = response.actionIdentifier
+        }
+        
+        //在根视图控制器上弹出普通消息提示框
+        if let vc = UIApplication.shared.keyWindow?.rootViewController {
+            let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "确定", style: .cancel))
+            vc.present(alert, animated: true)
+        }
+    }
 }

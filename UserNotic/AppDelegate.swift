@@ -66,6 +66,7 @@ extension AppDelegate{
         //设置通知代理
         UNUserNotificationCenter.current().delegate = notificationHandler
         
+        // 权限
         UNUserNotificationCenter.current().getNotificationSettings { (settings: UNNotificationSettings) in
             switch settings.authorizationStatus {
             case UNAuthorizationStatus.authorized:
@@ -92,6 +93,35 @@ extension AppDelegate{
             default: break
             }
         }
+        
+        // category
+        let newsCategory: UNNotificationCategory = {
+            //创建输入文本的action
+            let inputAction = UNTextInputNotificationAction(
+                identifier: "newsComment",
+                title: "评论",
+                options: [.foreground],
+                textInputButtonTitle: "发送",
+                textInputPlaceholder: "在这里留下你想说的话...")
+             
+            //创建普通的按钮action
+            let likeAction = UNNotificationAction(
+                identifier: "newsLike",
+                title: "点个赞",
+                options: [.foreground])
+             
+            //创建普通的按钮action
+            let cancelAction = UNNotificationAction(
+                identifier: "newsCancel",
+                title: "取消",
+                options: [.destructive])
+             
+            //创建category
+            return UNNotificationCategory(identifier: "news", actions: [inputAction, likeAction, cancelAction], intentIdentifiers: [], options: [.customDismissAction])
+        }()
+         
+        //把category添加到通知中心
+        UNUserNotificationCenter.current().setNotificationCategories([newsCategory])
     }
 }
  
