@@ -53,7 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         //打印出获取到的token字符串
-        print("==== \(#function) Get Push token: \(deviceToken.hexString)")
+        let token = deviceToken.reduce("", {$0 + String(format: "%02X", $1)}).lowercased()
+        print("==== \(#function) Get Push token: \(token)")
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("==== \(#function) error: \(error)")
@@ -122,16 +123,5 @@ extension AppDelegate{
          
         //把category添加到通知中心
         UNUserNotificationCenter.current().setNotificationCategories([newsCategory])
-    }
-}
- 
-//对Data类型进行扩展
-fileprivate extension Data {
-    //将Data转换为String
-    var hexString: String {
-        return withUnsafeBytes {(bytes: UnsafePointer<UInt8>) -> String in
-            let buffer = UnsafeBufferPointer(start: bytes, count: count)
-            return buffer.map {String(format: "%02hhx", $0)}.reduce("", { $0 + $1 })
-        }
     }
 }
