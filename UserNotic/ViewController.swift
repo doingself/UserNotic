@@ -18,30 +18,27 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         
         var index = 0
-        let add = getButton(index: index, tag: 11, title: "add")
+        viewAddButton(index: index, tag: 11, title: "add")
         
         index += 1
-        let addCategory = getButton(index: index, tag: 12, title: "addCategory")
+        viewAddButton(index: index, tag: 12, title: "addImage")
         
         index += 1
-        let get = getButton(index: index, tag: 21, title: "get")
+        viewAddButton(index: index, tag: 13, title: "addCategory")
         
         index += 1
-        let del = getButton(index: index, tag: 33, title: "del")
+        viewAddButton(index: index, tag: 21, title: "get")
         
-        self.view.addSubview(add)
-        self.view.addSubview(addCategory)
-        self.view.addSubview(get)
-        self.view.addSubview(del)
+        index += 1
+        viewAddButton(index: index, tag: 33, title: "del")
+        
     }
     
-    func getButton(index: Int, tag: Int, title: String) -> UIButton {
-        
+    func viewAddButton(index: Int, tag: Int, title: String) {
         let x: CGFloat = 100
         let y: CGFloat = CGFloat(100 + (index * 40))
         let width: CGFloat = self.view.frame.size.width - 200
         let height: CGFloat = 35
-        
         let frame = CGRect(x: x, y: y, width: width, height: height)
         
         let btn = UIButton(frame: frame)
@@ -49,7 +46,8 @@ class ViewController: UIViewController {
         btn.setTitle(title, for: UIControl.State.normal)
         btn.setTitleColor(UIColor.blue, for: UIControl.State.normal)
         btn.addTarget(self, action: #selector(self.buttonAction(sender:)), for: UIControl.Event.touchUpInside)
-        return btn
+        
+        self.view.addSubview(btn)
     }
     
     @objc func buttonAction(sender: UIButton){
@@ -59,6 +57,9 @@ class ViewController: UIViewController {
             createLocalUserNotifications()
             
         case 12:
+            createImageLocalUserNotifications()
+            
+        case 13:
             createCategoryLocalUserNotifications()
             
         case 21:
@@ -117,6 +118,33 @@ extension ViewController {
                 print("Time Interval Notification scheduled: \(requestIdentifier)")
             }
         }
+    }
+    
+    
+    func createImageLocalUserNotifications(){
+        print("==== \(#function)")
+        
+        let content = UNMutableNotificationContent()
+        content.title = "title"
+        content.body = "\(#function)"
+        content.badge = 2
+        content.userInfo = ["key": "value"]
+        
+        //给通知添加音频附件
+        if let audioURL = Bundle.main.url(forResource: "slience", withExtension: "mp3"),
+            let attachment = try? UNNotificationAttachment(identifier: "audioAttachment", url: audioURL, options: nil) {
+            content.attachments = [attachment]
+        }
+        //给通知添加图片附件
+        if let imageURL = Bundle.main.url(forResource: "image", withExtension: "jpg"),
+            let attachment = try? UNNotificationAttachment(identifier: "imageAttachment", url: imageURL, options: nil) {
+            content.attachments = [attachment]
+        }
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        let requestIdentifier = "identifier-\(Date().timeIntervalSince1970)"
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
     

@@ -16,6 +16,8 @@
 		679D359123FD0B1500D2E5AB /* UserNoticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679D359023FD0B1500D2E5AB /* UserNoticTests.swift */; };
 		679D359C23FD0B1500D2E5AB /* UserNoticUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679D359B23FD0B1500D2E5AB /* UserNoticUITests.swift */; };
 		679D35AB23FD1B3F00D2E5AB /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679D35AA23FD1B3F00D2E5AB /* NotificationHandler.swift */; };
+		679D35AD23FD464600D2E5AB /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 679D35AC23FD464600D2E5AB /* image.jpg */; };
+		679D35AF23FD47F600D2E5AB /* slience.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 679D35AE23FD47F600D2E5AB /* slience.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		679D359B23FD0B1500D2E5AB /* UserNoticUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticUITests.swift; sourceTree = "<group>"; };
 		679D359D23FD0B1500D2E5AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		679D35AA23FD1B3F00D2E5AB /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		679D35AC23FD464600D2E5AB /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
+		679D35AE23FD47F600D2E5AB /* slience.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = slience.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 				679D357B23FD0B1400D2E5AB /* SceneDelegate.swift */,
 				679D35AA23FD1B3F00D2E5AB /* NotificationHandler.swift */,
 				679D357D23FD0B1400D2E5AB /* ViewController.swift */,
+				679D35AE23FD47F600D2E5AB /* slience.mp3 */,
+				679D35AC23FD464600D2E5AB /* image.jpg */,
 				679D357F23FD0B1400D2E5AB /* Main.storyboard */,
 				679D358223FD0B1500D2E5AB /* Assets.xcassets */,
 				679D358423FD0B1500D2E5AB /* LaunchScreen.storyboard */,
@@ -235,8 +241,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				679D35AD23FD464600D2E5AB /* image.jpg in Resources */,
 				679D358623FD0B1500D2E5AB /* LaunchScreen.storyboard in Resources */,
 				679D358323FD0B1500D2E5AB /* Assets.xcassets in Resources */,
+				679D35AF23FD47F600D2E5AB /* slience.mp3 in Resources */,
 				679D358123FD0B1400D2E5AB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
