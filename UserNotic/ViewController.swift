@@ -45,6 +45,7 @@ class ViewController: UIViewController {
         btn.tag = tag
         btn.setTitle(title, for: UIControl.State.normal)
         btn.setTitleColor(UIColor.blue, for: UIControl.State.normal)
+        btn.setTitleColor(UIColor.black, for: UIControl.State.highlighted)
         btn.addTarget(self, action: #selector(self.buttonAction(sender:)), for: UIControl.Event.touchUpInside)
         
         self.view.addSubview(btn)
