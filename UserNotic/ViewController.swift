@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         viewAddButton(index: index, tag: 21, title: "get")
         
         index += 1
-        viewAddButton(index: index, tag: 33, title: "del")
+        viewAddButton(index: index, tag: 31, title: "del")
         
     }
     

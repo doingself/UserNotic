@@ -19,9 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("==== \(#function)")
         
-        //向APNs请求token
-        UIApplication.shared.registerForRemoteNotifications()
-        
         configUserNotificatioins()
         
         return true
@@ -49,15 +46,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-// MARK: deviceToken
+// MARK: Remote Notifications
 extension AppDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         //打印出获取到的token字符串
+        //let token = deviceToken.map { String(format: "%02hhx", $0) }.joined()
         let token = deviceToken.reduce("", {$0 + String(format: "%02X", $1)}).lowercased()
         print("==== \(#function) Get Push token: \(token)")
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("==== \(#function) error: \(error)")
+    }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        print("==== \(#function) userInfo: \(userInfo)")
     }
 }
 // MARK: UserNotifications
@@ -71,11 +73,22 @@ extension AppDelegate{
         UNUserNotificationCenter.current().getNotificationSettings { (settings: UNNotificationSettings) in
             switch settings.authorizationStatus {
             case UNAuthorizationStatus.authorized:
-                return
+                // 向APNs请求token
+                // 请求授权时异步进行的，这里需要在主线程进行通知的注册
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
                 
             case .notDetermined:
                 //请求通知权限
                 UNUserNotificationCenter.current().requestAuthorization(options: [UNAuthorizationOptions.alert, .sound, .badge]) { (accepted: Bool, error: Error?) in
+                    if accepted {
+                        // 向APNs请求token
+                        // 请求授权时异步进行的，这里需要在主线程进行通知的注册
+                        DispatchQueue.main.async {
+                            UIApplication.shared.registerForRemoteNotifications()
+                        }
+                    }
                     print("消息通知权限: \(accepted)")
                 }
                 

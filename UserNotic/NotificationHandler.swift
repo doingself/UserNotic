@@ -13,6 +13,7 @@ class NotificationHandler: NSObject {
 
 }
 
+// MARK: UNUserNotificationCenterDelegate
 extension NotificationHandler: UNUserNotificationCenterDelegate{
     //在应用内展示通知
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -23,6 +24,7 @@ extension NotificationHandler: UNUserNotificationCenterDelegate{
         completionHandler([UNNotificationPresentationOptions.alert, .sound])
         
     }
+    
     //对通知进行响应（用户与通知进行交互时被调用）
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
@@ -37,6 +39,12 @@ extension NotificationHandler: UNUserNotificationCenterDelegate{
         
         //完成了工作
         completionHandler()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
+        
+        print("==== \(#function) notification.title: \(notification?.request.content.title)")
+        
     }
     
     //处理新闻资讯通知的交互
